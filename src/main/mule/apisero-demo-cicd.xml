@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="823988c7-9fcb-42ef-bffe-1507a51b7594" >
+		<http:listener-connection host="0.0.0.0" port="8085" />
+	</http:listener-config>
+	<flow name="firstappFlow" doc:id="a42de37f-e9f6-477e-ab67-dbee3240248f" >
+		<http:listener doc:name="8085 : /test" doc:id="c8be6b3b-0903-41ef-b5cf-562240aa135f" config-ref="HTTP_Listener_config" path="/test"/>
+		<logger level="INFO" doc:name="Logger" doc:id="82104211-fc67-442d-b65e-b8e27282edcf" message="#[payload]"/>
+		<ee:transform doc:name="Transform Message" doc:id="56e7473f-856c-4171-9e41-2b456451866a" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	message: payload,
+	success: "Application working with jenkins",
+	test: "sample"
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="Logger" doc:id="9d76580d-cec8-4bff-ac38-8b71b9e8ab61" message="working fine---------------------!!"/>
+	</flow>
+</mule>
