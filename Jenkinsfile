@@ -22,7 +22,7 @@ pipeline {
       steps {
         echo 'Deploying only because of code commit...'
         echo 'Deploying to  dev environent....'
-        sh 'mvn package deploy -DmuleDeploy -Dusername=varsha_yy -Dpassword=C@yogita2809 -Denv=Production -DworkerType=Micro -Dworkers=1 -Denv=Design -Dapp.name=hifi'
+        sh 'mvn package deploy -DmuleDeploy -Dusername=varsha_yy -Dpassword=C@yogita2809 -DworkerType=Micro -Dworkers=1 -Denv=Design -Dapp.name=hifi'
       }
 	  
 	}
